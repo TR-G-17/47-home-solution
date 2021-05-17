@@ -1,4 +1,5 @@
-import React, {useState} from "react"
+import React, {useContext, useState} from "react"
+import {bookContext} from "./App";
 
 const getClearComment = () => {
     return {
@@ -9,13 +10,25 @@ const getClearComment = () => {
 }
 
 const NewComment =() => {
+    const ctn = useContext(bookContext)
+
     const [comment, setComment] = useState(getClearComment())
     const onChangeHandle = event => {
         setComment((comment) => {
             return {...comment, [event.target.name]: event.target.value }
         })
-        console.log( comment )
     }
+    const onClickHandle = event => {
+        event.preventDefault();
+        if ( comment.name.trim() === '' || comment.comment.trim() === '' || comment.rating === 0 ) {
+            return
+        }
+
+        ctn.addComment(comment)
+
+        setComment(getClearComment())
+    }
+
     return (
         <div className="card mt-3">
             <div className="card-body">
@@ -28,7 +41,7 @@ const NewComment =() => {
                         id="nameText"
                         name="name"
                         placeholder="Your Name here"
-                        defaultValue={comment.name}
+                        value={comment.name}
                         onChange={onChangeHandle}
                     />
                 </div>
@@ -39,7 +52,7 @@ const NewComment =() => {
                         id="commentText"
                         rows="3"
                         name="comment"
-                        defaultValue={comment.comment}
+                        value={comment.comment}
                         onChange={onChangeHandle}
                     />
                 </div>
@@ -48,7 +61,7 @@ const NewComment =() => {
                     <select className="form-select"
                             aria-label="Default select example"
                             name="rating"
-                            defaultValue={comment.rating}
+                            value={comment.rating}
                             onChange={onChangeHandle}
                     >
                         <option >Open this select menu</option>
@@ -59,6 +72,7 @@ const NewComment =() => {
                         <option value="5">5</option>
                     </select>
                 </div>
+                <button type="button" className="btn btn-sm btn-success" onClick={onClickHandle}>Add Comment</button>
             </div>
         </div>
     )

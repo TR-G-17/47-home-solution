@@ -5,8 +5,13 @@ const Comments = ({comments}) => {
 
 
     return (
-        <ul className="list-group">
-            {comments.map((comment) => (<li className="list-group-item" key={comment.id}>{<CommentRecord comment={comment} /> }</li>))}
+        <ul className="list-unstyled">
+            {comments.map(
+                (comment) => (
+                    <li className="mb-1" key={comment.id}>
+                        {<CommentRecord comment={comment} /> }
+                    </li>)
+            )}
         </ul>
     )
 }

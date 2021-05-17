@@ -5,7 +5,7 @@ import NewComment from "./NewComment";
 const Book = ({book}) => {
     return (
         <div className="row">
-            <div className="col-md-4">
+            <div className="col-sm-6">
                 <div className="card">
                     <div className="card-body">
                         <h4 className="card-title">
@@ -19,7 +19,7 @@ const Book = ({book}) => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-8">
+            <div className="col-sm-6">
                 <Comments comments={book.comments} />
                 <NewComment />
             </div>
